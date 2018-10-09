@@ -4,8 +4,6 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 3000;
 
-//database configuration
-//mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));

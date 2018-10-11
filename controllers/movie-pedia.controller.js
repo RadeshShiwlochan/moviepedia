@@ -1,3 +1,7 @@
-exports.home = (req,res) => {
+exports.home = (req, res) => {
   res.render('../views/home');
-}
+};
+
+exports.movie = (req, res) => {
+  res.render('../views/movie');
+};

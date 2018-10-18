@@ -1,18 +1,10 @@
 const request = require('request');
-
-const getMovie = () => {
-  request('', (error, response, body) => {
-  console.log('error:', error); 
-  console.log('statusCode:', response && response.statusCode); 
-  console.log('body:', body); 
-});
-};
-
-const callApi = (callback) => {
-  callback();
-};
+const movieUtil = require('../utilities/movie-util');
+const callOMDBApi = movieUtil.callOMDBApi;
+const getMovie = movieUtil.getMovie;
 
 exports.home = (req, res) => {
+  callOMDBApi(getMovie);
   res.render('../views/home');
 };
 

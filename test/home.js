@@ -14,6 +14,7 @@ describe('API endpoint /home', () => {
       .get('/home')
       .then((res) => {
         expect(res).to.have.status(200);
+        console.log(res);
       });
   });
 });

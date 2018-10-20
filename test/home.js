@@ -6,7 +6,11 @@
 const app = require('../app.js'); 
 const chai = require('chai');
 const expect = require('chai').expect;
+const assert = require('chai').assert;
 chai.use(require('chai-http'));
+const movieUtil = require('../utilities/movie-util');
+const callOMDBApi = movieUtil.callOMDBApi;
+const getMovie = movieUtil.getMovie;
 
 describe('API endpoint /home', () => {
   it('should render the homepage', () => {
@@ -14,7 +18,15 @@ describe('API endpoint /home', () => {
       .get('/home')
       .then((res) => {
         expect(res).to.have.status(200);
-        console.log(res);
+      });
+  });
+
+  it('should GET an object from API call to OMDB', () => {
+    return chai.request(app)
+      .get('/home')
+      .then((res) => {
+        expect(res).to.have.status(200);
+        assert.typeOf(callOMDBApi(getMovie), 'object');
       });
   });
 });

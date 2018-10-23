@@ -9,6 +9,5 @@ exports.home = (req, res) => {
 };
 
 exports.movie = (req, res) => {
-  callApi(getMovie);
   res.render('../views/movie');
 };

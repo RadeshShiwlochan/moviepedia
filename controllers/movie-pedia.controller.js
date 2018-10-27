@@ -3,9 +3,10 @@ const movieUtil = require('../utilities/movie-util');
 const callOMDBApi = movieUtil.callOMDBApi;
 const getMovie = movieUtil.getMovie;
 const getPopMovies = movieUtil.getPopMovies;
+const getMoviesInTheaters = movieUtil.getMoviesInTheaters;
 
 exports.home = (req, res) => {
-  callOMDBApi(getPopMovies);
+  callOMDBApi(getMoviesInTheaters);
   res.render('../views/home');
 };
 

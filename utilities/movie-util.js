@@ -18,8 +18,16 @@ const getPopMovies = () => {
   });
 };
 
+const getMoviesInTheaters = () => {
+  const moviesData = request(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDb_API_KEY}&primary_release_date.gte=2014-09-15&primary_release_date.lte=2014-10-22`,
+  (err, res, body) => {
+    console.log('movies', body);
+  });
+}
+
 module.exports = {
     getMovie,
     callOMDBApi,
-    getPopMovies
+    getPopMovies,
+    getMoviesInTheaters
 };

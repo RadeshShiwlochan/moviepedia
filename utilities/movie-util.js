@@ -11,6 +11,12 @@ const callOMDBApi = (callback) => {
   return callback();
 };
 
+const getPopMovies = () => {
+  const movieData = request(``, (err, res, body) => {
+    console.log('data', body);  
+  });
+};
+
 module.exports = {
     getMovie,
     callOMDBApi

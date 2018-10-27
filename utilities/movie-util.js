@@ -12,12 +12,14 @@ const callOMDBApi = (callback) => {
 };
 
 const getPopMovies = () => {
-  const movieData = request(``, (err, res, body) => {
+  const movieData = request(`https://api.themoviedb.org/3/movie/550?api_key=${process.env.TMDb_API_KEY}`, 
+    (err, res, body) => {
     console.log('data', body);  
   });
 };
 
 module.exports = {
     getMovie,
-    callOMDBApi
+    callOMDBApi,
+    getPopMovies
 };

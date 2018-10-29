@@ -13,3 +13,7 @@ exports.home = (req, res) => {
 exports.movie = (req, res) => {
   res.render('../views/movie');
 };
+
+exports.movieResults = (req,res) => {
+  res.render('../views/movie-results');
+};

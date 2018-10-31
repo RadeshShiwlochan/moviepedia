@@ -19,11 +19,17 @@ const getMonth = (month) => {
 }
 
 const calcDatePeriod = () => {
-  const date = new Date();
+  const dat = new Date();
+  const date = (dat).toString();
   let currntDate = date.substring(4,15);
   let month = currntDate.substring(0,3);
-  let day = currntDate.substring(8,10);
-  let year = currntDate.substring(11); 
+  let day = currntDate.substring(4,6);
+  let year = currntDate.substring(7); 
+  currMnthNum = getMonth(month);
+  let previousWk = (parseInt(day) - 7).toString();
+  let startPeriod = `${year}-${currMnthNum}-${previousWk}`
+  let endPeriod = `${year}-${currMnthNum}-${day}`;
+  return `primary_release_date.gte=${startPeriod}&primary_release_date.lte=${endPeriod}`;
 };
 
 const getMovie = () => {
@@ -58,4 +64,4 @@ module.exports = {
   getMoviesInTheaters
 };
 
-console.log(getMonth('Oct'));
+console.log(calcDatePeriod());

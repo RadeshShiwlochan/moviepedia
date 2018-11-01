@@ -27,7 +27,7 @@ const calcDatePeriod = () => {
   let year = currntDate.substring(7); 
   currMnthNum = getMonth(month);
   let previousWk = (parseInt(day) - 7).toString();
-  let startPeriod = `${year}-${currMnthNum}-${previousWk}`
+  let startPeriod = `${year}-${currMnthNum}-${previousWk}`;
   let endPeriod = `${year}-${currMnthNum}-${day}`;
   return `primary_release_date.gte=${startPeriod}&primary_release_date.lte=${endPeriod}`;
 };
@@ -51,11 +51,12 @@ const getPopMovies = () => {
 };
 
 const getMoviesInTheaters = () => {
-  const moviesData = request(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDb_API_KEY}&primary_release_date.gte=2014-09-15&primary_release_date.lte=2014-10-22`,
+  const moviesData = request(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDb_API_KEY}&primary_release_date.gte=2018-04-20&primary_release_date.lte=2018-05-05`,
   (err, res, body) => {
-    console.log('movies', body);
+    return body;
   });
-}
+  return moviesData;
+};
 
 module.exports = {
   getMovie,

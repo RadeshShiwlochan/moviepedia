@@ -6,12 +6,11 @@ const getPopMovies = movieUtil.getPopMovies;
 const getMoviesInTheaters = movieUtil.getMoviesInTheaters;
 
 exports.home = (req, res) => {
-  callOMDBApi(getMoviesInTheaters);
   res.render('../views/home');
 };
 
 exports.movie = (req, res) => {
-  res.render('../views/movie');
+  res.render('../views/movie', callOMDBApi(getMoviesInTheaters));
 };
 
 exports.movieResults = (req,res) => {

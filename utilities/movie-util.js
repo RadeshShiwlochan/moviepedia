@@ -18,14 +18,22 @@ const getMonth = (month) => {
   return fullYr[month];
 }
 
+const calcDate = () => {
+  const fullDate = new Date();
+  const dateStr = (fullDate).toString();
+  const currntDate = dateStr.substring(4,15);
+  return {
+    'currntDate': currntDate.substring(0,3),
+    'day': currntDate.substring(4,6),
+    'month': currntDate.substring(0,3),
+    'year': currntDate.substring(7)
+  };
+}
+
 const calcDatePeriod = () => {
-  const dat = new Date();
-  const date = (dat).toString();
-  let currntDate = date.substring(4,15);
-  let month = currntDate.substring(0,3);
-  let day = currntDate.substring(4,6);
-  let year = currntDate.substring(7); 
-  currMnthNum = getMonth(month);
+  const currentDate = calcDate();
+  currMnthNum = getMonth(currentDate.month);
+  /* add a function to fix this*/ 
   let previousWk = (parseInt(day) - 7).toString();
   let startPeriod = `${year}-${currMnthNum}-${previousWk}`;
   let endPeriod = `${year}-${currMnthNum}-${day}`;

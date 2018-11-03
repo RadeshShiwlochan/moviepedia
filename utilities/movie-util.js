@@ -61,14 +61,13 @@ const callOMDBApi = (callback) => {
 const getPopMovies = () => {
   const movieData = request(`https://api.themoviedb.org/3/movie/550?api_key=${process.env.TMDb_API_KEY}`, 
     (err, res, body) => {
-    console.log('data', body);  
   });
 };
 
-module.exports.getMoviesInTheaters = new Promise((resolve,reject) => {
+const getMoviesInTheaters = new Promise((resolve,reject) => {
   request(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDb_API_KEY}&primary_release_date.gte=2018-04-20&primary_release_date.lte=2018-05-05`,
   (err, res, body) => {
-      if (err != null) {
+      if (!err) {
         resolve(body);
       } else {
         reject(err)
@@ -79,7 +78,6 @@ module.exports.getMoviesInTheaters = new Promise((resolve,reject) => {
 module.exports = {
   getMovie,
   callOMDBApi,
-  getPopMovies
+  getPopMovies,
+  getMoviesInTheaters
 };
-
-console.log(calcDatePeriod());

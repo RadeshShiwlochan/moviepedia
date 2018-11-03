@@ -10,7 +10,11 @@ exports.home = (req, res) => {
 };
 
 exports.movie = (req, res) => {
-  res.render('../views/movie', callOMDBApi(getMoviesInTheaters));
+  getMoviesInTheaters.then(function(value) {
+    res.render('../views/movie', value);
+  }).catch(function(err) {
+    res.render('../views/home')
+  });
 };
 
 exports.movieResults = (req,res) => {

@@ -33,16 +33,23 @@ const calcDate = () => {
 const calcDatePeriod = () => {
   const currentDate = calcDate();
   currMnthNum = getMonth(currentDate.month);
-  /* add a function to fix this*/ 
+  /* add a function to fix this 
   let previousWk = (parseInt(day) - 7).toString();
   let startPeriod = `${year}-${currMnthNum}-${previousWk}`;
   let endPeriod = `${year}-${currMnthNum}-${day}`;
   return `primary_release_date.gte=${startPeriod}&primary_release_date.lte=${endPeriod}`;
+  */
 };
 
 const getMovie = () => {
   const movieData = request(process.env.MY_API_KEY, (err, res, body) => {
-    console.log('bodies:', body);
+    return new Promise((resolve,reject)=> {
+      if (err != null) {
+        resolve(body)
+      } else {
+        reject(err)
+      }
+    });
   });
   return movieData;
 };
@@ -58,19 +65,21 @@ const getPopMovies = () => {
   });
 };
 
-const getMoviesInTheaters = () => {
-  const moviesData = request(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDb_API_KEY}&primary_release_date.gte=2018-04-20&primary_release_date.lte=2018-05-05`,
+module.exports.getMoviesInTheaters = new Promise((resolve,reject) => {
+  request(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDb_API_KEY}&primary_release_date.gte=2018-04-20&primary_release_date.lte=2018-05-05`,
   (err, res, body) => {
-    return body;
+      if (err != null) {
+        resolve(body);
+      } else {
+        reject(err)
+      }
   });
-  return moviesData;
-};
+});
 
 module.exports = {
   getMovie,
   callOMDBApi,
-  getPopMovies,
-  getMoviesInTheaters
+  getPopMovies
 };
 
 console.log(calcDatePeriod());

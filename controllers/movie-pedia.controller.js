@@ -11,8 +11,8 @@ exports.home = (req, res) => {
 
 exports.movie = (req, res) => {
   getMoviesInTheaters.then(function(value) {
-    console.log(value);
-    res.render('../views/movie', {'total_pages': 12 });
+    const obj = JSON.parse(value);
+    res.render('../views/movie', obj);
   }).catch(function(err) {
     res.render('../views/home')
   });

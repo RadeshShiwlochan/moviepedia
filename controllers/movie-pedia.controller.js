@@ -7,17 +7,32 @@ const getMoviesInTheaters = movieUtil.getMoviesInTheaters;
 
 exports.home = (req, res) => {
   getMoviesInTheaters.then(function(value) {
-  const moviesInTheaters = JSON.parse(value);
-  res.render('../views/home', moviesInTheaters);
+    const moviesInTheaters = JSON.parse(value);
+    res.render('../views/home', moviesInTheaters);
   }).catch(function(err) {
     res.render('../views/error');
   });
 };
 
-exports.movie = (req, res) => {
-  res.render('../views/home');
+exports.movieResults = (req, res) => {
+  const getSearchResults = new Promise((resolve,reject) => {
+    request(`http://www.omdbapi.com/?s=${req.body.searchItem}&${OMDB_API_KEY}`, (err, res, body) => {
+      if (!err) {
+        resolve(body);
+      } else {
+        reject(err)
+      }
+    });
+  });
+  getSearchResults.then(function(value) {
+    const searchResults = JSON.parse(value);
+    console.log(searchResults);
+    res.render('../views/movie-results');
+  }).catch(function(err) {
+    res.render('../views/home');
+  });
 };
 
-exports.movieResults = (req,res) => {
-  res.render('../views/movie-results');
+exports.movie = (req, res) => {
+  res.render('../views/home');
 };

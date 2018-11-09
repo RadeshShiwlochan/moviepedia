@@ -37,8 +37,6 @@ const calcDatePeriod = () => {
   const endPeriod = `${year}-${month}-${day}`;
   /* add a function to fix this 
   let previousWk = (parseInt(day) - 7).toString();
-  
-  
   return `primary_release_date.gte=${startPeriod}&primary_release_date.lte=${endPeriod}`;
   */
 };
@@ -69,6 +67,16 @@ const getPopMovies = () => {
 const getMoviesInTheaters = new Promise((resolve,reject) => {
   request(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDb_API_KEY}&primary_release_date.gte=2018-04-20&primary_release_date.lte=2018-05-05`,
   (err, res, body) => {
+      if (!err) {
+        resolve(body);
+      } else {
+        reject(err)
+      }
+  });
+});
+
+const getSearchResults = new Promise((resolve,reject) => {
+  request(`http://www.omdbapi.com/?s=avengers&apikey=be60821a`, (err, res, body) => {
       if (!err) {
         resolve(body);
       } else {

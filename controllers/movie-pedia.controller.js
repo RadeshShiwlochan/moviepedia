@@ -16,7 +16,7 @@ exports.home = (req, res) => {
 
 exports.movieResults = (req, res) => {
   const getSearchResults = new Promise((resolve,reject) => {
-    request(`http://www.omdbapi.com/?s=${req.body.searchItem}&${OMDB_API_KEY}`, (err, res, body) => {
+    request(`http://www.omdbapi.com/?s=${req.body.searchItem}&`, (err, res, body) => {
       if (!err) {
         resolve(body);
       } else {
@@ -26,8 +26,8 @@ exports.movieResults = (req, res) => {
   });
   getSearchResults.then(function(value) {
     const searchResults = JSON.parse(value);
-    console.log(searchResults);
-    res.render('../views/movie-results');
+    console.log(searchResults.Search[0]["Title"]);
+    res.render('../views/movie-results', searchResults);
   }).catch(function(err) {
     res.render('../views/home');
   });

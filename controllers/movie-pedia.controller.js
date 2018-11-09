@@ -6,16 +6,16 @@ const getPopMovies = movieUtil.getPopMovies;
 const getMoviesInTheaters = movieUtil.getMoviesInTheaters;
 
 exports.home = (req, res) => {
-  res.render('../views/home');
+  getMoviesInTheaters.then(function(value) {
+  const moviesInTheaters = JSON.parse(value);
+  res.render('../views/home', moviesInTheaters);
+  }).catch(function(err) {
+    res.render('../views/error');
+  });
 };
 
 exports.movie = (req, res) => {
-  getMoviesInTheaters.then(function(value) {
-    const obj = JSON.parse(value);
-    res.render('../views/movie', obj);
-  }).catch(function(err) {
-    res.render('../views/home')
-  });
+  res.render('../views/home');
 };
 
 exports.movieResults = (req,res) => {

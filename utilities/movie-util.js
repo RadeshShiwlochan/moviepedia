@@ -23,7 +23,7 @@ const calcDate = () => {
   const dateStr = (fullDate).toString();
   const currntDate = dateStr.substring(4,15);
   return {
-    'currntDate': currntDate.substring(0,3),
+    'currentDate': currntDate.substring(0,3),
     'day': currntDate.substring(4,6),
     'month': currntDate.substring(0,3),
     'year': currntDate.substring(7)
@@ -32,18 +32,20 @@ const calcDate = () => {
 
 const calcDatePeriod = () => {
   const currentDate = calcDate();
-  currMnthNum = getMonth(currentDate.month);
+  const month = getMonth(currentDate.month);
+  const startPeriod = `${year}-${month}-${previousWk}`;
+  const endPeriod = `${year}-${month}-${day}`;
   /* add a function to fix this 
   let previousWk = (parseInt(day) - 7).toString();
-  let startPeriod = `${year}-${currMnthNum}-${previousWk}`;
-  let endPeriod = `${year}-${currMnthNum}-${day}`;
+  
+  
   return `primary_release_date.gte=${startPeriod}&primary_release_date.lte=${endPeriod}`;
   */
 };
 
 const getMovie = () => {
   const movieData = request(process.env.MY_API_KEY, (err, res, body) => {
-    return new Promise((resolve,reject)=> {
+    return new Promise((resolve,reject) => {
       if (err != null) {
         resolve(body)
       } else {

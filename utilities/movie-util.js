@@ -44,27 +44,23 @@ const calcPrevWkDate = (currentDate) => {
   } else {
     day = day - 7;
   }
-  return { 'year': year, 'month': month, 'day': day };
+  return { 'year': year.toString(), 'month': month.toString(), 'day': day.toString() };
 }
 
 const calcDatePeriod = () => {
   const currentDate = calcDate();
   const month = getMonth(currentDate.month);
   const prevWkDate =
-   calcPrevWkDate({'year': currentDate.year, 'month':month, 'day': currentDate.day });
-  const startPeriod = `${currentDate.year}-${month}-${currentDate.day}`;
+    calcPrevWkDate({'year': currentDate.year, 'month':month, 'day': currentDate.day });
+  const startPeriod = `${prevWkDate.year}-${prevWkDate.month}-${prevWkDate.day}`;
   const endPeriod = `${currentDate.year}-${month}-${currentDate.day}`;
-  /* 
-  add a function to fix this 
-  let previousWk = (parseInt(day) - 7).toString();
-  */
- return `primary_release_date.gte=${startPeriod}&primary_release_date.lte=${endPeriod}`;
+  return `primary_release_date.gte=${startPeriod}&primary_release_date.lte=${endPeriod}`;
 };
 
 const getMovie = () => {
   const movieData = request(process.env.MY_API_KEY, (err, res, body) => {
     return new Promise((resolve,reject) => {
-      if (err != null) {
+      if (!err) {
         resolve(body)
       } else {
         reject(err)
@@ -85,7 +81,8 @@ const getPopMovies = () => {
 };
 
 const getMoviesInTheaters = new Promise((resolve,reject) => {
-  request(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDb_API_KEY}&primary_release_date.gte=2018-04-20&primary_release_date.lte=2018-05-05`,
+  const dateRange = calcDatePeriod();
+  request(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDb_API_KEY}&${dateRange}`,
   (err, res, body) => {
       if (!err) {
         resolve(body);
@@ -96,7 +93,7 @@ const getMoviesInTheaters = new Promise((resolve,reject) => {
 });
 
 const getSearchResults = new Promise((resolve,reject) => {
-  request(`http://www.omdbapi.com/?s=avengers&${OMDB_API_KEY}`, (err, res, body) => {
+  request(`http://www.omdbapi.com/?s=avengers&${process.env.OMDB_API_KEY}`, (err, res, body) => {
       if (!err) {
         resolve(body);
       } else {
@@ -104,8 +101,6 @@ const getSearchResults = new Promise((resolve,reject) => {
       }
   });
 });
-
-console.log(calcPrevWkDate({'year':'2019', 'month': '01', 'day': '3'}));
 
 module.exports = {
   getMovie,

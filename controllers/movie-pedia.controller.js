@@ -8,6 +8,7 @@ const getMoviesInTheaters = movieUtil.getMoviesInTheaters;
 exports.home = (req, res) => {
   getMoviesInTheaters.then(function(value) {
     const moviesInTheaters = JSON.parse(value);
+    console.log(moviesInTheaters);
     res.render('../views/home', moviesInTheaters);
   }).catch(function(err) {
     res.render('../views/error');
@@ -26,7 +27,6 @@ exports.movieResults = (req, res) => {
   });
   getSearchResults.then(function(value) {
     const searchResults = JSON.parse(value);
-    console.log(searchResults.Search[0]["Title"]);
     res.render('../views/movie-results', searchResults);
   }).catch(function(err) {
     res.render('../views/home');

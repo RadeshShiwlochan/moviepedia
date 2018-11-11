@@ -30,15 +30,35 @@ const calcDate = () => {
   };
 }
 
+const calcPrevWkDate = (currentDate) => {
+  let year = parseInt(currentDate.year);
+  let month = parseInt(currentDate.month);
+  let day = parseInt(currentDate.day);
+  if (day <= 7 && month != 1) {
+    day = Math.abs(day - 30);
+    month = month - 1;
+  } else if( day <= 7 && month === 1) {
+    month = 11;
+    day = Math.abs(day - 30); 
+    year = year - 1; 
+  } else {
+    day = day - 7;
+  }
+  return { 'year': year, 'month': month, 'day': day };
+}
+
 const calcDatePeriod = () => {
   const currentDate = calcDate();
   const month = getMonth(currentDate.month);
-  const startPeriod = `${year}-${month}-${previousWk}`;
-  const endPeriod = `${year}-${month}-${day}`;
-  /* add a function to fix this 
+  const prevWkDate =
+   calcPrevWkDate({'year': currentDate.year, 'month':month, 'day': currentDate.day });
+  const startPeriod = `${currentDate.year}-${month}-${currentDate.day}`;
+  const endPeriod = `${currentDate.year}-${month}-${currentDate.day}`;
+  /* 
+  add a function to fix this 
   let previousWk = (parseInt(day) - 7).toString();
-  return `primary_release_date.gte=${startPeriod}&primary_release_date.lte=${endPeriod}`;
   */
+ return `primary_release_date.gte=${startPeriod}&primary_release_date.lte=${endPeriod}`;
 };
 
 const getMovie = () => {
@@ -76,7 +96,7 @@ const getMoviesInTheaters = new Promise((resolve,reject) => {
 });
 
 const getSearchResults = new Promise((resolve,reject) => {
-  request(`http://www.omdbapi.com/?s=avengers&apikey=be60821a`, (err, res, body) => {
+  request(`http://www.omdbapi.com/?s=avengers&${OMDB_API_KEY}`, (err, res, body) => {
       if (!err) {
         resolve(body);
       } else {
@@ -84,6 +104,8 @@ const getSearchResults = new Promise((resolve,reject) => {
       }
   });
 });
+
+console.log(calcPrevWkDate({'year':'2019', 'month': '01', 'day': '3'}));
 
 module.exports = {
   getMovie,

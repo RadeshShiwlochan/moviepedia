@@ -17,7 +17,8 @@ exports.home = (req, res) => {
 
 exports.movieResults = (req, res) => {
   const getSearchResults = new Promise((resolve,reject) => {
-    request(`http://www.omdbapi.com/?s=${req.body.searchItem}&`, (err, res, body) => {
+    request(`http://www.omdbapi.com/?s=${req.body.searchItem}&${process.env.OMDB_API_KEY}`, 
+    (err, res, body) => {
       if (!err) {
         resolve(body);
       } else {

@@ -35,5 +35,5 @@ exports.movieResults = (req, res) => {
 };
 
 exports.movie = (req, res) => {
-  res.render('../views/home');
+  res.render('../views/movie');
 };

@@ -15,3 +15,15 @@ describe('getMonth function', () => {
         assert.typeOf(movieUtil.getMonth('Jan'), 'string');
   });
 });
+
+describe('calcDate function', () => {
+  it('should return an object', () => {
+    assert.typeOf(movieUtil.calcDate(), 'object');
+  });
+});
+
+describe('calcPrvWkDate function', () => {
+  it('should return an object', () => {
+    assert.typeOf(movieUtil.calcPrevWkDate({'year': '2018', 'month':'11', 'day': '01' }), 'object');
+  });
+});

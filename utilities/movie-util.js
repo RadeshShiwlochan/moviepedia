@@ -110,6 +110,8 @@ const getSearchResults = new Promise((resolve,reject) => {
 module.exports = {
   getMonth,
   calcDate,
+  calcPrevWkDate,
+  calcDatePeriod,
   getMovie,
   callOMDBApi,
   getPopMovies,

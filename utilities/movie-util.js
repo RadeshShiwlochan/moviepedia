@@ -34,6 +34,7 @@ const calcPrevWkDate = (currentDate) => {
   let year = parseInt(currentDate.year);
   let month = parseInt(currentDate.month);
   let day = parseInt(currentDate.day);
+
   if (day <= 7 && month != 1) {
     day = Math.abs(day - 30);
     month = month - 1;
@@ -44,7 +45,11 @@ const calcPrevWkDate = (currentDate) => {
   } else {
     day = day - 7;
   }
-  return { 'year': year.toString(), 'month': month.toString(), 'day': day.toString() };
+  return { 
+           'year': year.toString(), 
+           'month': month.toString(), 
+           'day': day.toString() 
+         };
 }
 
 const calcDatePeriod = () => {
@@ -103,6 +108,8 @@ const getSearchResults = new Promise((resolve,reject) => {
 });
 
 module.exports = {
+  getMonth,
+  calcDate,
   getMovie,
   callOMDBApi,
   getPopMovies,

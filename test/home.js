@@ -20,7 +20,6 @@ describe('API endpoint /home', () => {
         expect(res).to.have.status(200);
       });
   });
-
   it('should GET an object from API call to OMDB', () => {
     return chai.request(app)
       .get('/home')

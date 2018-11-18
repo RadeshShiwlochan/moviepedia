@@ -8,7 +8,6 @@ const getMoviesInTheaters = movieUtil.getMoviesInTheaters;
 exports.home = (req, res) => {
   getMoviesInTheaters.then(function(value) {
     const moviesInTheaters = JSON.parse(value);
-    console.log(moviesInTheaters);
     res.render('../views/home', moviesInTheaters);
   }).catch(function(err) {
     res.render('../views/error');
@@ -35,5 +34,8 @@ exports.movieResults = (req, res) => {
 };
 
 exports.movie = (req, res) => {
+  console.log(req.params.title)
+  const obj = JSON.stringify(req.params.title);
+  console.log(typeof obj)
   res.render('../views/movie');
 };

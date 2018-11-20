@@ -34,8 +34,7 @@ exports.movieResults = (req, res) => {
 };
 
 exports.movie = (req, res) => {
-  console.log(req.params.title)
-  const obj = JSON.stringify(req.params.title);
-  console.log(typeof obj)
-  res.render('../views/movie');
+  const obj = req.params.title;
+  const id = req.params.id;
+  res.render('../views/movie', {'title':obj, 'id': id });
 };

@@ -13,7 +13,7 @@ const getMovie = movieUtil.getMovie;
 describe('API endpoint /movie', () => {
   it('should render the movie page', () => {
     return chai.request(app)
-      .get('/movie')
+      .get('/movie/:title/:id')
       .then((res) => {
         expect(res).to.have.status(200);
       });

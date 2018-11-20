@@ -27,3 +27,9 @@ describe('calcPrvWkDate function', () => {
     assert.typeOf(movieUtil.calcPrevWkDate({'year': '2018', 'month':'11', 'day': '01' }), 'object');
   });
 });
+
+describe('calcDatePeriod function', () => {
+  it('should return a string', () => {
+    assert.typeOf(movieUtil.calcDatePeriod(), 'string');
+  });
+});

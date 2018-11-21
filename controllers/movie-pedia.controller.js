@@ -9,7 +9,7 @@ exports.home = (req, res) => {
   getMoviesInTheaters.then((value) => {
     const moviesInTheaters = JSON.parse(value);
     res.render('../views/home', moviesInTheaters);
-  }).catch(function(err) {
+  }).catch((err) => {
     res.render('../views/error');
   });
 };
@@ -25,10 +25,10 @@ exports.movieResults = (req, res) => {
       }
     });
   });
-  getSearchResults.then(function(value) {
+  getSearchResults.then((value) => {
     const searchResults = JSON.parse(value);
     res.render('../views/movie-results', searchResults);
-  }).catch(function(err) {
+  }).catch((err) => {
     res.render('../views/home');
   });
 };

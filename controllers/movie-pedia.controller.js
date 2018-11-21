@@ -6,7 +6,7 @@ const getPopMovies = movieUtil.getPopMovies;
 const getMoviesInTheaters = movieUtil.getMoviesInTheaters;
 
 exports.home = (req, res) => {
-  getMoviesInTheaters.then(function(value) {
+  getMoviesInTheaters.then((value) => {
     const moviesInTheaters = JSON.parse(value);
     res.render('../views/home', moviesInTheaters);
   }).catch(function(err) {

@@ -34,13 +34,12 @@ exports.movieResults = (req, res) => {
 };
 
 exports.movie = (req, res) => {
-  const movieTitle = req.params.title.trim();
-  const movieID = req.params.id;
-  console.log(movieTitle);
-  console.log(typeof movieTitle);
-  const getSearchResults = new Promise((resolve,reject) => {
-    request("http://www.omdbapi.com/?s=" + movieTitle + "&" + process.env.OMDB_API_KEY, 
-    (err, res, body) => {
+  // const movieTitle = req.params.title.trim();
+  // const movieID = req.params.id;
+  // console.log(movieTitle);
+  // console.log(typeof movieTitle);
+  const movieClicked = new Promise((resolve,reject) => {
+    request("", (err, res, body) => {
       if (!err) {
         resolve(body);
       } else {
@@ -48,7 +47,7 @@ exports.movie = (req, res) => {
       }
     });
   });
-  getSearchResults.then((value) => {
+  movieClicked.then((value) => {
     const movieResults = JSON.parse(value);
     let movieObj = {};
     for (let i = 0; i < movieResults.Results.length;++i) {
@@ -60,6 +59,6 @@ exports.movie = (req, res) => {
     res.render('../views/movie', {'title':obj, 'id': id });
   }).catch((err) => {
     console.log('ERROR OCCURRED!!!');
-    res.render('../views/home');
+    res.render('../views/error');
   });
 };

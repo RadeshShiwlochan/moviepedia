@@ -23,16 +23,15 @@
         <div class="col-lg-3">
           <h3 class="my-4"><%=title%></h3>
           <div class="list-group">
-            <p class="list-group-item">Year Released</p>
-            <p class="list-group-item">Box Office</p>
-            <p class="list-group-item">Budget</p>
+            <p class="list-group-item">Year Released: <%=release_date%></p>
+            <p class="list-group-item">Popularity: <%=popularity%></p>
           </div>
         </div>
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
           <div class="card mt-4">
-            <img class="card-img-top img-fluid" src="" alt="">
+            <img class="text-center" height="400px" width="250px" src="http://image.tmdb.org/t/p/w185/<%- poster_path %>" alt="">
             <div class="card-body">
               <h3 class="card-title"><%=title%></h3>
               <h4></h4>
@@ -42,7 +41,6 @@
             </div>
           </div>
           <!-- /.card -->
-
           <div class="card card-outline-secondary my-4">
             <div class="card-header">
               Plot

@@ -34,31 +34,20 @@ exports.movieResults = (req, res) => {
 };
 
 exports.movie = (req, res) => {
-  // const movieTitle = req.params.title.trim();
-  // const movieID = req.params.id;
-  // console.log(movieTitle);
-  // console.log(typeof movieTitle);
-  const movieClicked = new Promise((resolve,reject) => {
-    request("", (err, res, body) => {
-      if (!err) {
-        resolve(body);
-      } else {
-        reject(err)
-      }
-    });
-  });
-  movieClicked.then((value) => {
-    const movieResults = JSON.parse(value);
-    let movieObj = {};
-    for (let i = 0; i < movieResults.Results.length;++i) {
-      if (movieResults.Results[i]["id"] === movieID) {
-        movieObj = movieResults.Results[i];
+  getMoviesInTheaters.then((movieResults) => {
+    const movieResultsObject = JSON.parse(movieResults);
+    const movieTitle = req.params.title;
+    const movieID = req.params.id; 
+    let movieClicked = {};
+    for (let i = 0; i < movieResultsObject.results.length; i++) {
+      if (movieResultsObject.results[i]["id"] == movieID) {
+        movieClicked = movieResultsObject.results[i];
+        break;
       }
     }
-    console.log('this is movieObj', movieObj);
-    res.render('../views/movie', {'title':obj, 'id': id });
-  }).catch((err) => {
-    console.log('ERROR OCCURRED!!!');
-    res.render('../views/error');
+    res.render('../views/movie', movieClicked);
+  }).catch((error) => {
+    console.log(error);
+    reject(error);
   });
 };

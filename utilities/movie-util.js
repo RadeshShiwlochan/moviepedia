@@ -75,10 +75,6 @@ const getMovie = () => {
   return movieData;
 };
   
-const callOMDBApi = (callback) => {
-  return callback();
-};
-
 const getPopMovies = () => {
   const movieData = request(`https://api.themoviedb.org/3/movie/550?api_key=${process.env.TMDb_API_KEY}`, 
     (err, res, body) => {
@@ -99,11 +95,11 @@ const getMoviesInTheaters = new Promise((resolve,reject) => {
 
 const getSearchResults = new Promise((resolve,reject) => {
   request(`http://www.omdbapi.com/?s=avengers&${process.env.OMDB_API_KEY}`, (err, res, body) => {
-      if (!err) {
-        resolve(body);
-      } else {
-        reject(err)
-      }
+    if (!err) {
+      resolve(body);
+    } else {
+      reject(err)
+    }
   });
 });
 

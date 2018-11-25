@@ -20,12 +20,4 @@ describe('API endpoint /home', () => {
         expect(res).to.have.status(200);
       });
   });
-  it('should GET an object from API call to OMDB', () => {
-    return chai.request(app)
-      .get('/home')
-      .then((res) => {
-        expect(res).to.have.status(200);
-        assert.typeOf(callOMDBApi(getMovie), 'object');
-      });
-  });
 });

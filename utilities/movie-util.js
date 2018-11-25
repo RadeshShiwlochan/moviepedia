@@ -103,13 +103,24 @@ const getSearchResults = new Promise((resolve,reject) => {
   });
 });
 
+const callOMDBApi = (callback) => {
+  return callback();
+};
+
+const addPlusSignsBetweenString = (movieTitle) => {
+  return movieTitle.split(" ").join('+');
+}
+
+console.log(addPlusSignsBetweenString("guardians of the galaxy"));
+
 module.exports = {
   getMonth,
   calcDate,
   calcPrevWkDate,
   calcDatePeriod,
   getMovie,
-  callOMDBApi,
   getPopMovies,
-  getMoviesInTheaters
+  getMoviesInTheaters,
+  callOMDBApi,
+  addPlusSignsBetweenString
 };

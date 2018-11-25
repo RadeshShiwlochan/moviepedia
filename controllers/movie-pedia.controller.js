@@ -1,3 +1,5 @@
+'use strict';
+
 const request = require('request');
 const movieUtil = require('../utilities/movie-util');
 const callOMDBApi = movieUtil.callOMDBApi;
@@ -45,6 +47,8 @@ exports.movie = (req, res) => {
         break;
       }
     }
+    return movieClicked;
+  }).then((movieClicked) => {
     res.render('../views/movie', movieClicked);
   }).catch((error) => {
     console.log(error);

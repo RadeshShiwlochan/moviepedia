@@ -49,9 +49,24 @@ exports.movie = (req, res) => {
     }
     return movieClicked;
   }).then((movieClicked) => {
-    res.render('../views/movie', movieClicked);
+    const movieData = new Promise( (resolve, reject ) => {
+      const movieTitle = movieClicked.title;
+      const formattedTitle = movieUtil.insertPlusSignsBetweenString(movieTitle);
+      request(`http://www.omdbapi.com/?t=${formattedTitle}&${process.env.OMDB_API_KEY}`, 
+      (err, res, body) => {
+        if (!err) {
+          resolve(body);
+        } else {
+          reject(err);
+        }
+      });
+    });
+    movieData.then((value) => {
+      const movieDataObject = JSON.parse(value);
+      res.render('../views/movie', movieDataObject);
+    }); 
   }).catch((error) => {
     console.log(error);
     reject(error);
   });
-};
+};  

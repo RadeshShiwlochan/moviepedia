@@ -107,11 +107,9 @@ const callOMDBApi = (callback) => {
   return callback();
 };
 
-const addPlusSignsBetweenString = (movieTitle) => {
+const insertPlusSignsBetweenString = (movieTitle) => {
   return movieTitle.split(" ").join('+');
 }
-
-console.log(addPlusSignsBetweenString("guardians of the galaxy"));
 
 module.exports = {
   getMonth,
@@ -122,5 +120,5 @@ module.exports = {
   getPopMovies,
   getMoviesInTheaters,
   callOMDBApi,
-  addPlusSignsBetweenString
+  insertPlusSignsBetweenString
 };

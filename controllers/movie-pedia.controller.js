@@ -63,6 +63,7 @@ exports.movie = (req, res) => {
     });
     movieData.then((value) => {
       const movieDataObject = JSON.parse(value);
+      console.log(movieDataObject);
       res.render('../views/movie', movieDataObject);
     }); 
   }).catch((error) => {

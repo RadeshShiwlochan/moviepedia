@@ -111,6 +111,20 @@ const insertPlusSignsBetweenString = (movieTitle) => {
   return movieTitle.split(" ").join('+');
 }
 
+const findMovieClickedObj = (movieResults, req) => {
+  const movieResultsObject = JSON.parse(movieResults);
+  const movieTitle = req.params.title;
+  const movieID = req.params.id; 
+  let movieClicked = {};
+  for (let i = 0; i < movieResultsObject.results.length; i++) {
+    if (movieResultsObject.results[i]["id"] == movieID) {
+      movieClicked = movieResultsObject.results[i];
+      break;
+    }
+  }
+  return movieClicked;
+};
+
 module.exports = {
   getMonth,
   calcDate,
@@ -120,5 +134,6 @@ module.exports = {
   getPopMovies,
   getMoviesInTheaters,
   callOMDBApi,
-  insertPlusSignsBetweenString
+  insertPlusSignsBetweenString,
+  findMovieClickedObj
 };

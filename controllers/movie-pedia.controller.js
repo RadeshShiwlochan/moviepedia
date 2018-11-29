@@ -37,17 +37,7 @@ exports.movieResults = (req, res) => {
 
 exports.movie = (req, res) => {
   getMoviesInTheaters.then((movieResults) => {
-    const movieResultsObject = JSON.parse(movieResults);
-    const movieTitle = req.params.title;
-    const movieID = req.params.id; 
-    let movieClicked = {};
-    for (let i = 0; i < movieResultsObject.results.length; i++) {
-      if (movieResultsObject.results[i]["id"] == movieID) {
-        movieClicked = movieResultsObject.results[i];
-        break;
-      }
-    }
-    return movieClicked;
+    return movieUtil.findMovieClickedObj(movieResults, req);
   }).then((movieClicked) => {
     const movieData = new Promise( (resolve, reject ) => {
       const movieTitle = movieClicked.title;

@@ -7,6 +7,7 @@ const getMovie = movieUtil.getMovie;
 const getPopMovies = movieUtil.getPopMovies;
 const getMoviesInTheaters = movieUtil.getMoviesInTheaters;
 const getMovieResults = movieUtil.getMovieResults;
+
 exports.home = (req, res) => {
   getMoviesInTheaters.then((value) => {
     const moviesInTheaters = JSON.parse(value);

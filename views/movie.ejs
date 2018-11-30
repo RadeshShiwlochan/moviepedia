@@ -26,6 +26,9 @@
             <p class="list-group-item">Year Released: <%=Released%></p>
             <p class="list-group-item">Rated: <%=Rated%></p>
             <p class="list-group-item">BoxOffice: <%=BoxOffice%></p>
+            <% for(var i = 0; i < Ratings.length; ++i) { %>
+              <p class="list-group-item"><%-Ratings[i]['Source']%>:<%-Ratings[i]['Value']%></p>
+            <% } %>  
             <p class="list-group-item">Metascore <%=Metascore%></p>
             <p class="list-group-item">imdbRating: <%=imdbRating%></p>
           </div>

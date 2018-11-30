@@ -6,7 +6,7 @@ const callOMDBApi = movieUtil.callOMDBApi;
 const getMovie = movieUtil.getMovie;
 const getPopMovies = movieUtil.getPopMovies;
 const getMoviesInTheaters = movieUtil.getMoviesInTheaters;
-
+const getMovieResults = movieUtil.getMovieResults;
 exports.home = (req, res) => {
   getMoviesInTheaters.then((value) => {
     const moviesInTheaters = JSON.parse(value);
@@ -17,17 +17,7 @@ exports.home = (req, res) => {
 };
 
 exports.movieResults = (req, res) => {
-  const getSearchResults = new Promise((resolve,reject) => {
-    request(`http://www.omdbapi.com/?s=${req.body.searchItem}&${process.env.OMDB_API_KEY}`, 
-    (err, res, body) => {
-      if (!err) {
-        resolve(body);
-      } else {
-        reject(err)
-      }
-    });
-  });
-  getSearchResults.then((value) => {
+  getMovieResults(req.body.searchItem).then((value) => {
     const searchResults = JSON.parse(value);
     res.render('../views/movie-results', searchResults);
   }).catch((err) => {

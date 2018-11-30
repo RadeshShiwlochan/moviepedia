@@ -125,6 +125,19 @@ const findMovieClickedObj = (movieResults, req) => {
   return movieClicked;
 };
 
+const getMovieResults = (movieSearchItem) => {
+  return new Promise((resolve,reject) => {
+    request(`http://www.omdbapi.com/?s=${movieSearchItem}&${process.env.OMDB_API_KEY}`, 
+    (err, res, body) => {
+      if (!err) {
+        resolve(body);
+      } else {
+        reject(err)
+      }
+    });
+  });  
+};
+
 module.exports = {
   getMonth,
   calcDate,
@@ -135,5 +148,6 @@ module.exports = {
   getMoviesInTheaters,
   callOMDBApi,
   insertPlusSignsBetweenString,
-  findMovieClickedObj
+  findMovieClickedObj,
+  getMovieResults
 };

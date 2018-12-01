@@ -29,25 +29,16 @@ exports.movieResults = (req, res) => {
 exports.movie = (req, res) => {
   getMoviesInTheaters.then((movieResults) => {
     return movieUtil.findMovieClickedObj(movieResults, req);
-  }).then((movieClicked) => {
-    const movieData = new Promise( (resolve, reject ) => {
-      const movieTitle = movieClicked.title;
-      const formattedTitle = movieUtil.insertPlusSignsBetweenString(movieTitle);
-      request(`http://www.omdbapi.com/?t=${formattedTitle}&${process.env.OMDB_API_KEY}`, 
-      (err, res, body) => {
-        if (!err) {
-          resolve(body);
-        } else {
-          reject(err);
-        }
-      });
-    });
-    movieData.then((value) => {
+  }).
+    then((movieClicked) => {
+    return movieUtil.searchMovieClicked(movieClicked);
+  }).
+    then((value) => {
       const movieDataObject = JSON.parse(value);
       console.log(movieDataObject);
       res.render('../views/movie', movieDataObject);
-    }); 
-  }).catch((error) => {
+  }) 
+  .catch((error) => {
     console.log(error);
     reject(error);
   });

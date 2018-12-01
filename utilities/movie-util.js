@@ -138,6 +138,21 @@ const getMovieResults = (movieSearchItem) => {
   });  
 };
 
+const searchMovieClicked = (movieClicked) => {
+  return new Promise( (resolve, reject ) => {
+    const movieTitle = movieClicked.title;
+    const formattedTitle = insertPlusSignsBetweenString(movieTitle);
+    request(`http://www.omdbapi.com/?t=${formattedTitle}&${process.env.OMDB_API_KEY}`, 
+    (err, res, body) => {
+      if (!err) {
+        resolve(body);
+      } else {
+        reject(err);
+      }
+    });
+  });
+};
+
 module.exports = {
   getMonth,
   calcDate,
@@ -149,5 +164,6 @@ module.exports = {
   callOMDBApi,
   insertPlusSignsBetweenString,
   findMovieClickedObj,
-  getMovieResults
+  getMovieResults,
+  searchMovieClicked
 };

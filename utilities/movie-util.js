@@ -83,6 +83,8 @@ const getPopMovies = () => {
 
 const getMoviesInTheaters = new Promise((resolve,reject) => {
   const dateRange = calcDatePeriod();
+  const apiEndPointString = 
+  'https://api.themoviedb.org/3/discover/movie?api_key=' + process.env.TMDb_API_KEY}+ '&' + dateRange;
   request(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDb_API_KEY}&${dateRange}`,
   (err, res, body) => {
       if (!err) {
@@ -94,13 +96,9 @@ const getMoviesInTheaters = new Promise((resolve,reject) => {
 });
 
 const getSearchResults = new Promise((resolve,reject) => {
-  request(`http://www.omdbapi.com/?s=avengers&${process.env.OMDB_API_KEY}`, (err, res, body) => {
-    if (!err) {
-      resolve(body);
-    } else {
-      reject(err)
-    }
-  });
+  const apiEndPointString = 
+  'http://www.omdbapi.com/?s=avengers&' + process.env.OMDB_API_KEY;
+  return makeAPIRequest(apiEndPointString);
 });
 
 const callOMDBApi = (callback) => {
@@ -126,9 +124,21 @@ const findMovieClickedObj = (movieResults, req) => {
 };
 
 const getMovieResults = (movieSearchItem) => {
+  const apiEndPointString = 
+  'http://www.omdbapi.com/?s='+movieSearchItem+'&'+process.env.OMDB_API_KEY;
+  return makeAPIRequest(apiEndPointString);
+};
+
+const searchMovieClicked = (movieClicked) => {
+  const formattedTitle = insertPlusSignsBetweenString(movieClicked.title);
+  const apiEndPointString = 
+  'http://www.omdbapi.com/?t='+formattedTitle+'&'+process.env.OMDB_API_KEY;
+  return makeAPIRequest(apiEndPointString);
+};
+
+const makeAPIRequest = (apiEndPoint) => {
   return new Promise((resolve,reject) => {
-    request(`http://www.omdbapi.com/?s=${movieSearchItem}&${process.env.OMDB_API_KEY}`, 
-    (err, res, body) => {
+    request(apiEndPoint, (err, res, body) => {
       if (!err) {
         resolve(body);
       } else {
@@ -136,22 +146,7 @@ const getMovieResults = (movieSearchItem) => {
       }
     });
   });  
-};
-
-const searchMovieClicked = (movieClicked) => {
-  return new Promise( (resolve, reject ) => {
-    const movieTitle = movieClicked.title;
-    const formattedTitle = insertPlusSignsBetweenString(movieTitle);
-    request(`http://www.omdbapi.com/?t=${formattedTitle}&${process.env.OMDB_API_KEY}`, 
-    (err, res, body) => {
-      if (!err) {
-        resolve(body);
-      } else {
-        reject(err);
-      }
-    });
-  });
-};
+}
 
 module.exports = {
   getMonth,
@@ -165,5 +160,6 @@ module.exports = {
   insertPlusSignsBetweenString,
   findMovieClickedObj,
   getMovieResults,
-  searchMovieClicked
+  searchMovieClicked,
+  makeAPIRequest
 };

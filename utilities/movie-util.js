@@ -84,7 +84,7 @@ const getPopMovies = () => {
 const getMoviesInTheaters = new Promise((resolve,reject) => {
   const dateRange = calcDatePeriod();
   const apiEndPointString = 
-  'https://api.themoviedb.org/3/discover/movie?api_key=' + process.env.TMDb_API_KEY}+ '&' + dateRange;
+  'https://api.themoviedb.org/3/discover/movie?api_key=' + process.env.TMDb_API_KEY+ '&' + dateRange;
   request(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDb_API_KEY}&${dateRange}`,
   (err, res, body) => {
       if (!err) {

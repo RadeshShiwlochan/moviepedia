@@ -62,6 +62,18 @@ const calcDatePeriod = () => {
   return `primary_release_date.gte=${startPeriod}&primary_release_date.lte=${endPeriod}`;
 };
 
+const makeAPIRequest = (apiEndPoint) => {
+  return new Promise((resolve,reject) => {
+    request(apiEndPoint, (err, res, body) => {
+      if (!err) {
+        resolve(body);
+      } else {
+        reject(err)
+      }
+    });
+  });  
+}
+
 const getMovie = () => {
   const movieData = request(process.env.MY_API_KEY, (err, res, body) => {
     return new Promise((resolve,reject) => {
@@ -73,12 +85,6 @@ const getMovie = () => {
     });
   });
   return movieData;
-};
-  
-const getPopMovies = () => {
-  const movieData = request(`https://api.themoviedb.org/3/movie/550?api_key=${process.env.TMDb_API_KEY}`, 
-    (err, res, body) => {
-  });
 };
 
 const getMoviesInTheaters = new Promise((resolve,reject) => {
@@ -100,10 +106,6 @@ const getSearchResults = new Promise((resolve,reject) => {
   'http://www.omdbapi.com/?s=avengers&' + process.env.OMDB_API_KEY;
   return makeAPIRequest(apiEndPointString);
 });
-
-const callOMDBApi = (callback) => {
-  return callback();
-};
 
 const insertPlusSignsBetweenString = (movieTitle) => {
   return movieTitle.split(" ").join('+');
@@ -136,17 +138,7 @@ const searchMovieClicked = (movieClicked) => {
   return makeAPIRequest(apiEndPointString);
 };
 
-const makeAPIRequest = (apiEndPoint) => {
-  return new Promise((resolve,reject) => {
-    request(apiEndPoint, (err, res, body) => {
-      if (!err) {
-        resolve(body);
-      } else {
-        reject(err)
-      }
-    });
-  });  
-}
+
 
 module.exports = {
   getMonth,
@@ -154,9 +146,7 @@ module.exports = {
   calcPrevWkDate,
   calcDatePeriod,
   getMovie,
-  getPopMovies,
   getMoviesInTheaters,
-  callOMDBApi,
   insertPlusSignsBetweenString,
   findMovieClickedObj,
   getMovieResults,

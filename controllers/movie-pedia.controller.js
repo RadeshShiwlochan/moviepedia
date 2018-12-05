@@ -39,7 +39,6 @@ exports.movie = (req, res) => {
       res.render('../views/movie', movieDataObject);
   }) 
   .catch((error) => {
-    console.log(error);
     reject(error);
   });
 };  

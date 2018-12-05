@@ -10,9 +10,16 @@ const assert = require('chai').assert;
 chai.use(require('chai-http'));
 const movieUtil = require('../utilities/movie-util');
 
+describe('makeAPIRequest function', () => {
+  it('should return a Promise', () => {
+    const apiString = process.env.MY_API_KEY;
+    assert.typeOf(movieUtil.makeAPIRequest(apiString), 'Promise');
+  });
+});
+
 describe('getMonth function', () => {
   it('should return a string', () => {
-        assert.typeOf(movieUtil.getMonth('Jan'), 'string');
+    assert.typeOf(movieUtil.getMonth('Jan'), 'string');
   });
 });
 

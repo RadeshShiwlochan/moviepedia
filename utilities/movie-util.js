@@ -87,19 +87,12 @@ const getMovie = () => {
   return movieData;
 };
 
-const getMoviesInTheaters = new Promise((resolve,reject) => {
+const getMoviesInTheaters = () => {
   const dateRange = calcDatePeriod();
   const apiEndPointString = 
   'https://api.themoviedb.org/3/discover/movie?api_key=' + process.env.TMDb_API_KEY+ '&' + dateRange;
-  request(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDb_API_KEY}&${dateRange}`,
-  (err, res, body) => {
-      if (!err) {
-        resolve(body);
-      } else {
-        reject(err)
-      }
-  });
-});
+  return makeAPIRequest(apiEndPointString);
+};
 
 const getSearchResults = new Promise((resolve,reject) => {
   const apiEndPointString = 

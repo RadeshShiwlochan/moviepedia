@@ -9,7 +9,7 @@ const getMoviesInTheaters = movieUtil.getMoviesInTheaters;
 const getMovieResults = movieUtil.getMovieResults;
 
 exports.home = (req, res) => {
-  getMoviesInTheaters.then((value) => {
+  getMoviesInTheaters().then((value) => {
     const moviesInTheaters = JSON.parse(value);
     res.render('../views/home', moviesInTheaters);
   }).catch((err) => {
@@ -27,7 +27,7 @@ exports.movieResults = (req, res) => {
 };
 
 exports.movie = (req, res) => {
-  getMoviesInTheaters.then((movieResults) => {
+  getMoviesInTheaters().then((movieResults) => {
     return movieUtil.findMovieClickedObj(movieResults, req);
   }).
     then((movieClicked) => {
@@ -35,7 +35,6 @@ exports.movie = (req, res) => {
   }).
     then((value) => {
       const movieDataObject = JSON.parse(value);
-      console.log(movieDataObject);
       res.render('../views/movie', movieDataObject);
   }) 
   .catch((error) => {

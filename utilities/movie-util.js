@@ -74,19 +74,6 @@ const makeAPIRequest = (apiEndPoint) => {
   });  
 }
 
-const getMovie = () => {
-  const movieData = request(process.env.MY_API_KEY, (err, res, body) => {
-    return new Promise((resolve,reject) => {
-      if (!err) {
-        resolve(body)
-      } else {
-        reject(err)
-      }
-    });
-  });
-  return movieData;
-};
-
 const getMoviesInTheaters = () => {
   const dateRange = calcDatePeriod();
   const apiEndPointString = 
@@ -131,14 +118,11 @@ const searchMovieClicked = (movieClicked) => {
   return makeAPIRequest(apiEndPointString);
 };
 
-
-
 module.exports = {
   getMonth,
   calcDate,
   calcPrevWkDate,
   calcDatePeriod,
-  getMovie,
   getMoviesInTheaters,
   insertPlusSignsBetweenString,
   findMovieClickedObj,

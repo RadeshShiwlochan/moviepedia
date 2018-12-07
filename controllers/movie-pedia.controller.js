@@ -6,10 +6,13 @@ const callOMDBApi = movieUtil.callOMDBApi;
 const getPopMovies = movieUtil.getPopMovies;
 const getMoviesInTheaters = movieUtil.getMoviesInTheaters;
 const getMovieResults = movieUtil.getMovieResults;
+const validateMoviesInTheatersData = movieUtil.validateMoviesInTheaterData;
 
 exports.home = (req, res) => {
   getMoviesInTheaters().then((value) => {
     const moviesInTheaters = JSON.parse(value);
+    const validateMovies = validateMoviesInTheatersData(moviesInTheaters.results);
+    moviesInTheaters.results = validateMovies;
     res.render('../views/home', moviesInTheaters);
   }).catch((err) => {
     res.render('../views/error');

@@ -22,6 +22,8 @@ exports.home = (req, res) => {
 exports.movieResults = (req, res) => {
   getMovieResults(req.body.searchItem).then((value) => {
     const searchResults = JSON.parse(value);
+    console.log("this is the search results:");
+    console.log(searchResults);
     res.render('../views/movie-results', searchResults);
   }).catch((err) => {
     res.render('../views/home');

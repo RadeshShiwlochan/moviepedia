@@ -45,11 +45,7 @@ const calcPrevWkDate = (currentDate) => {
   } else {
     day = day - 7;
   }
-  return { 
-           'year': year.toString(), 
-           'month': month.toString(), 
-           'day': day.toString() 
-         };
+  return { 'year': year.toString(), 'month': month.toString(), 'day': day.toString() };
 }
 
 const calcDatePeriod = () => {
@@ -75,18 +71,15 @@ const makeAPIRequest = (apiEndPoint) => {
 }
 
 const validateMoviesInTheaterData = (moviesInTheaters) => {
-//takes an array
   let validatedMovies = [];
   for (let i = 0; i < moviesInTheaters.length; ++i) {
     let movieData = moviesInTheaters[i];
     if (
       !movieData.hasOwnProperty('original_language') ||
-      movieData['original_language'] != "en"
+       movieData['original_language'] != "en"
       ) {
-       console.log(movieData);
-       continue; 
+        continue; 
       } 
-      console.log('inserting: ', movieData['title']);
       validatedMovies.push(movieData);
   }//for
   return validatedMovies; 

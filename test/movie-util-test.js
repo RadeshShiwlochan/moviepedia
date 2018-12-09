@@ -40,3 +40,31 @@ describe('calcDatePeriod function', () => {
     assert.typeOf(movieUtil.calcDatePeriod(), 'string');
   });
 });
+
+describe('validateMoviesInTheaterData function', () => {
+  const movieInTheater = {
+    results: [
+    { 
+      vote_count: 0,
+      id: 511619,
+      video: false,
+      vote_average: 0,
+      title: 'Test',
+      popularity: 23.085,
+      poster_path: '/bnh7yx2cqY2WOsSLkCKjffICkBS.jpg',
+      original_language: 'uk',
+      original_title: 'en',
+      genre_ids: [ 36, 10752, 18 ],
+      backdrop_path: null,
+      adult: false,
+      overview: 'Description Test',
+      release_date: '2018-12-06' 
+    }
+  ]
+  };
+  it('should return an array', () => {
+    assert.typeOf(
+      movieUtil.
+        validateMoviesInTheaterData(movieInTheater), 'array');
+  });
+});

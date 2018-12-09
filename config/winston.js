@@ -1,11 +1,13 @@
 const appRoot = require('app-root-path');
 const winston = require('winston');
-
+const movieUtil = require('../utilities/movie-util');
+const todayDate = movieUtil.calcDate().currentDate;
+const logOutput = `${appRoot}/logs/${todayDate}-app.log`
 // define the custom settings for each transport (file, console)
 const options = {
   file: {
     level: 'info',
-    filename: `${appRoot}/logs/app.log`,
+    filename: logOutput,
     handleExceptions: true,
     json: true,
     maxsize: 5242880, // 5MB

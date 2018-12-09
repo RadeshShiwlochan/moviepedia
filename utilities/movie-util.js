@@ -22,11 +22,15 @@ const calcDate = () => {
   const fullDate = new Date();
   const dateStr = (fullDate).toString();
   const currntDate = dateStr.substring(4,15);
+  const day = currntDate.substring(4,6);
+  const month = currntDate.substring(0,3);
+  const year = currntDate.substring(7);
+  const todaysDate = month + '-' + day + '-' + year;
   return {
-    'currentDate': currntDate.substring(0,3),
-    'day': currntDate.substring(4,6),
-    'month': currntDate.substring(0,3),
-    'year': currntDate.substring(7)
+    'currentDate': todaysDate,
+    'day': day,
+    'month': month,
+    'year': year
   };
 }
 

@@ -13,6 +13,7 @@ exports.home = (req, res) => {
     const moviesInTheaters = JSON.parse(value);
     const validateMovies = validateMoviesInTheatersData(moviesInTheaters.results);
     moviesInTheaters.results = validateMovies;
+    console.log(moviesInTheaters);
     res.render('../views/home', moviesInTheaters);
   }).catch((err) => {
     res.render('../views/error');

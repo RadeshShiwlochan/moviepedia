@@ -78,10 +78,9 @@ const validateMoviesInTheaterData = (moviesInTheaters) => {
   let validatedMovies = [];
   for (let i = 0; i < moviesInTheaters.length; ++i) {
     let movieData = moviesInTheaters[i];
-    if (
-      !movieData.hasOwnProperty('original_language') ||
-       movieData['original_language'] != "en"
-      ) {
+    if (!movieData.hasOwnProperty('original_language') ||
+        movieData['original_language'] != "en" || 
+        movieData['poster_path'] === null) {
         continue; 
       } 
       validatedMovies.push(movieData);

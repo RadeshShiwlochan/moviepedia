@@ -13,7 +13,6 @@ exports.home = (req, res) => {
     const moviesInTheaters = JSON.parse(value);
     const validateMovies = validateMoviesInTheatersData(moviesInTheaters.results);
     moviesInTheaters.results = validateMovies;
-    console.log(moviesInTheaters);
     res.render('../views/home', moviesInTheaters);
   }).catch((err) => {
     res.render('../views/error');
@@ -34,13 +33,13 @@ exports.movieResults = (req, res) => {
 exports.movie = (req, res) => {
   getMoviesInTheaters().then((movieResults) => {
     return movieUtil.findMovieClickedObj(movieResults, req);
-  }).
-    then((movieClicked) => {
+  })
+  .then((movieClicked) => {
     return movieUtil.searchMovieClicked(movieClicked);
-  }).
-    then((value) => {
-      const movieDataObject = JSON.parse(value);
-      res.render('../views/movie', movieDataObject);
+  })
+  .then((value) => {
+    const movieDataObject = JSON.parse(value);
+    res.render('../views/movie', movieDataObject);
   }) 
   .catch((error) => {
     reject(error);

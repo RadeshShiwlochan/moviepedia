@@ -108,10 +108,11 @@ const insertPlusSignsBetweenString = (movieTitle) => {
 const findMovieClickedObj = (movieResults, req) => {
   const movieResultsObject = JSON.parse(movieResults);
   const movieTitle = req.params.title;
-  const movieID = req.params.id; 
+  const movieID = req.params.year; 
   let movieClicked = {};
+  console.log('this is movieResultsObj', movieResultsObject);
   for (let i = 0; i < movieResultsObject.results.length; i++) {
-    if (movieResultsObject.results[i]["id"] == movieID) {
+    if (movieResultsObject.results[i]["release_date"] == movieID) {
       movieClicked = movieResultsObject.results[i];
       break;
     }

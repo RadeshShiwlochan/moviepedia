@@ -108,11 +108,14 @@ const insertPlusSignsBetweenString = (movieTitle) => {
 const findMovieClickedObj = (movieResults, req) => {
   const movieResultsObject = JSON.parse(movieResults);
   const movieTitle = req.params.title;
-  const movieID = req.params.year; 
+  console.log("this is the movie that was clicked in function 0", movieTitle);
+  const movieYear = req.params.year; 
   let movieClicked = {};
   for (let i = 0; i < movieResultsObject.results.length; i++) {
-    if (movieResultsObject.results[i]["release_date"] == movieID) {
+    if (movieResultsObject.results[i]["release_date"] == movieYear && 
+        movieResultsObject.results[i]["title"] == movieTitle) {
       movieClicked = movieResultsObject.results[i];
+      console.log("this is the movie that was clicked in function 1", movieClicked.title);
       break;
     }
   }
@@ -128,8 +131,7 @@ const getMovieResults = (movieSearchItem) => {
 const searchMovieClicked = (movieClicked) => {
   const formattedTitle = insertPlusSignsBetweenString(movieClicked.title);
   const year = movieClicked.release_date.substring(0,4);
-  console.log(movieClicked.title);
-  console.log(year);
+  console.log("this is the movie that was clicked in function 2", movieClicked.title);
   const apiEndPointString = 
   'http://www.omdbapi.com/?t='+formattedTitle+'&y='+year+'&'+process.env.OMDB_API_KEY;
   return makeAPIRequest(apiEndPointString);

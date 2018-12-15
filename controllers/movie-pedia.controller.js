@@ -22,7 +22,6 @@ exports.home = (req, res) => {
 exports.movieResults = (req, res) => {
   getMovieResults(req.body.searchItem).then((value) => {
     const searchResults = JSON.parse(value);
-    console.log("this is the search results:");
     console.log(searchResults);
     res.render('../views/movie-results', searchResults);
   }).catch((err) => {
@@ -33,15 +32,12 @@ exports.movieResults = (req, res) => {
 exports.movie = (req, res) => {
   getMoviesInTheaters().then((movieResults) => {
     return movieUtil.findMovieClickedObj(movieResults, req);
-  })
-  .then((movieClicked) => {
+  }).then((movieClicked) => {
     return movieUtil.searchMovieClicked(movieClicked);
-  })
-  .then((value) => {
+  }).then((value) => {
     const movieDataObject = JSON.parse(value);
     res.render('../views/movie', movieDataObject);
-  }) 
-  .catch((error) => {
+  }).catch((error) => {
     reject(error);
   });
 };  

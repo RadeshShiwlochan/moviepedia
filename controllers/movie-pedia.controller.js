@@ -30,11 +30,11 @@ exports.movieResults = (req, res) => {
 };
 
 exports.movie = (req, res) => {
-  getMoviesInTheaters().then((movieResults) => {
-    return movieUtil.findMovieClickedObj(movieResults, req);
-  }).then((movieClicked) => {
-    return movieUtil.searchMovieClicked(movieClicked);
-  }).then((value) => {
+  const movieClicked = movieUtil.findMovieClickedObj(req);
+  console.log(movieClicked);
+  movieUtil.searchMovieClicked(movieClicked).
+    then((value) => {
+    console.log("in then")  
     const movieDataObject = JSON.parse(value);
     res.render('../views/movie', movieDataObject);
   }).catch((error) => {

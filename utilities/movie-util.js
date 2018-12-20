@@ -18,6 +18,12 @@ const getMonth = (month) => {
   return fullYr[month];
 }
 
+const dateAsAString = (fullDate) => (fullDate).toString();
+
+const currentDate = (dateString) => dateString.substring(4,15);
+
+const getDay = (currentDate) => currentDate.substring(4,6);
+
 const calcDate = () => {
   const fullDate = new Date();
   const dateStr = (fullDate).toString();
@@ -107,18 +113,8 @@ const insertPlusSignsBetweenString = (movieTitle) => {
 
 const findMovieClickedObj = (req) => {
   const movieTitle = req.params.title;
-  console.log("this is the movie that was clicked in function 0", movieTitle);
   const movieYear = req.params.year; 
   return {"movieTitle": movieTitle, "movieYear": movieYear};
-  // for (let i = 0; i < movieResultsObject.results.length; i++) {
-  //   if (movieResultsObject.results[i]["release_date"] == movieYear && 
-  //       movieResultsObject.results[i]["title"] == movieTitle) {
-  //     movieClicked = movieResultsObject.results[i];
-  //     console.log("this is the movie that was clicked in function 1", movieClicked.title);
-  //     break;
-  //   }
-  // }
-  //return movieClicked;
 };
 
 const getMovieResults = (movieSearchItem) => {

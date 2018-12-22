@@ -1,5 +1,6 @@
 const request = require('request');
 
+/* returns a string of the month number*/
 const getMonth = (month) => {
   const fullYr = {
     'Jan': '01',
@@ -24,6 +25,10 @@ const currentDate = (dateString) => dateString.substring(4,15);
 
 const getDay = (currentDate) => currentDate.substring(4,6);
 
+/*
+Calculates the date in the format for the API
+call.  
+*/
 const calcDate = () => {
   const fullDate = new Date();
   const dateStr = (fullDate).toString();
@@ -40,6 +45,10 @@ const calcDate = () => {
   };
 }
 
+/*
+Calculates the Previous week date to get the range for the 
+movies in theaters
+*/
 const calcPrevWkDate = (currentDate) => {
   let year = parseInt(currentDate.year);
   let month = parseInt(currentDate.month);
@@ -58,6 +67,9 @@ const calcPrevWkDate = (currentDate) => {
   return { 'year': year.toString(), 'month': month.toString(), 'day': day.toString() };
 }
 
+/*
+calculates the range for the movieDB API call
+*/
 const calcDatePeriod = () => {
   const currentDate = calcDate();
   const month = getMonth(currentDate.month);
@@ -67,6 +79,7 @@ const calcDatePeriod = () => {
   const endPeriod = `${currentDate.year}-${month}-${currentDate.day}`;
   return `primary_release_date.gte=${startPeriod}&primary_release_date.lte=${endPeriod}`;
 };
+
 
 const makeAPIRequest = (apiEndPoint) => {
   return new Promise((resolve,reject) => {

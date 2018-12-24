@@ -69,6 +69,10 @@ const calcPrevWkDate = (currentDate) => {
 
 /*
 calculates the range for the movieDB API call
+* uses calcDate to get the current date, day, month and year
+* then uses calcPrevWKDate to get the date of the previous week
+* then returns endPeriod which is previous week's date and start Period in 
+  format needed for API call
 */
 const calcDatePeriod = () => {
   const currentDate = calcDate();
@@ -93,6 +97,10 @@ const makeAPIRequest = (apiEndPoint) => {
   });  
 }
 
+/*
+ * filters out movies in API call that are not english or do 
+   not have posters 
+*/
 const validateMoviesInTheaterData = (moviesInTheaters) => {
   let validatedMovies = [];
   for (let i = 0; i < moviesInTheaters.length; ++i) {
@@ -107,6 +115,10 @@ const validateMoviesInTheaterData = (moviesInTheaters) => {
   return validatedMovies; 
 };
 
+/*
+  uses calcDatePeriod to get the range of a week for API call
+  once the range is generated, a call to API is made
+*/
 const getMoviesInTheaters = () => {
   const dateRange = calcDatePeriod();
   const apiEndPointString = 
@@ -120,6 +132,11 @@ const getSearchResults = new Promise((resolve,reject) => {
   return makeAPIRequest(apiEndPointString);
 });
 
+/*
+  function is for formating string in appropriate form for API call
+  Movie names with spaces in between must have '+' signs between for 
+  API call
+*/
 const insertPlusSignsBetweenString = (movieTitle) => {
   return movieTitle.split(" ").join('+');
 }
